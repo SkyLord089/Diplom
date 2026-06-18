@@ -110,8 +110,8 @@ main{padding:2rem 1rem;max-width:1280px;margin:0 auto;position:relative;z-index:
 .mei{font-size:2.5rem;margin-bottom:.5rem}.mes{font-size:1.75rem;font-weight:900}
 .men{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-top:.25rem}
 .mev{position:absolute;bottom:-.75rem;background:#fff;color:var(--s8);font-size:.6rem;font-weight:900;text-transform:uppercase;padding:.375rem 1rem;border-radius:9999px;box-shadow:0 4px 10px rgba(0,0,0,.1);border:1px solid var(--s1);white-space:nowrap}
-.rx{min-height:500px;display:flex;flex-direction:column;justify-content:center;position:relative}
-.ra{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1rem;min-height:10rem;margin-top:3rem}
+.rx{display:flex;flex-direction:column;position:relative}
+.ra{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1rem;min-height:10rem}
 .rp{color:var(--s5);font-size:1rem;font-weight:500;background:rgba(255,255,255,.6);padding:1.5rem 2rem;border-radius:1.5rem;border:2px dashed var(--s3);text-align:center}
 .re{width:7rem;height:7rem;border-radius:1.5rem;display:flex;align-items:center;justify-content:center;font-size:3rem;box-shadow:0 10px 25px rgba(0,0,0,.1);border:2px solid rgba(255,255,255,.2)}
 .rpl{font-size:2.5rem;font-weight:900;color:var(--s4)}
@@ -219,7 +219,7 @@ const LVL=[[1,'Новичок',0,'🌱','geme'],[2,'Ученик',50,'📖','gbl
 const DC=[[1,'Создай 3 соединения','mix',3,25,'🧪'],[2,'Ответь на 5 вопросов','quiz',5,20,'✅'],[3,'Изучи 5 элементов','study',5,15,'📚'],[4,'Найди 4 пары','memory',4,20,'🎴']];
 const MC=[['H','💧','gblu'],['O','💨','gros'],['Na','🧂','gfuc'],['Cl','🏊','geme'],['C','💎','gsla'],['Fe','🔨','gdka'],['Ca','🦴','gros'],['S','🌋','gyel']];
 const QZ=[['Элемент с номером 1?',['Гелий','Водород','Литий','Кислород'],1],['Отрицательный заряд?',['Протон','Нейтрон','Электрон','Ядро'],2],['pH нейтральной среды?',['0','7','14','10'],1],['Создатель таблицы?',['Эйнштейн','Ньютон','Менделеев','Кюри'],2],['Связь металл-неметалл?',['Ковалентная','Ионная','Металлическая','Водородная'],1],['Формула воды?',['H₂O₂','H₂O','HO₂','H₃O'],1],['Самый лёгкий?',['Гелий','Водород','Литий','Углерод'],1],['Символ золота?',['Go','Gd','Au','Ag'],2],['Валентность O?',['1','2','3','4'],1],['Газ при выдохе?',['Кислород','Азот','CO₂','Водород'],2]];
-const NAV=[['home','🏠','Главная'],['learn','📖','Учебник'],['periodic','📊','Таблица'],['lab','⚗️','Лаборатория'],['memory','🎴','Память'],['quiz','✅','Тест'],['challenges','📅','Квесты']];
+const NAV=[['home','🏠','Главная'],['learn','📖','Шпаргалки'],['periodic','📊','Таблица'],['lab','⚗️','Лаборатория'],['memory','🎴','Память'],['quiz','✅','Тест'],['challenges','📅','Квесты']];
 const APHR=[['Привет, юный химик! 🧪','Готов к экспериментам? ⚗️','Добро пожаловать! 🔬'],['Отлично! 🌟','Превосходно! 👏','Ты учёный! 🎓'],['Попробуй ещё! 💪','Терпение! 🚀','Получится! ⭐']];
 
 // === STATE ===
@@ -277,7 +277,7 @@ function rHome(){
   let st=[[S.ts,'Очки','⭐'],[S.cc.length,'Синтез','🧪'],[S.se.length,'Элементы','⚛️'],[S.ua.length,'Трофеи','🏆'],[S.st,'Комбо','🔥'],[S.ls,'Дни','📅']];
   document.getElementById('home').innerHTML=`
   <div class="hero mb8"><h1 class="ht">🎓 Уроки Химии</h1><p class="hs">Интерактивное погружение в мир молекул, реакций и элементов!</p>
-  <div class="hb"><button class="btn bw" onclick="go('learn')">📖 Начать обучение</button><button class="btn bg" onclick="go('lab')">⚗️ В лабораторию</button></div></div>
+  <div class="hb"><button class="btn bw" onclick="go('learn')">📖 Шпаргалки</button><button class="btn bg" onclick="go('lab')">⚗️ В лабораторию</button></div></div>
   <div class="sg mb8">${st.map(s=>`<div class="sc"><div class="si">${s[2]}</div><div class="sv gt">${s[0]}</div><div class="sl">${s[1]}</div></div>`).join('')}</div>
   <div class="cd"><div class="fx ac jc g3 mb8"><span class="fs25">🏆</span><h2 class="fs2 fw9 tc gt">Зал Славы</h2></div><div class="ag" id="achG"></div></div>`;
   rAch();
@@ -291,11 +291,11 @@ function rAch(){
 // === LEARN ===
 function rLearn(){
   document.getElementById('learn').innerHTML=`
-  <div class="cd tc"><h2 class="fs25 fw9 mb4 gt">📖 Интерактивный Учебник</h2><p class="c6 fs12 fw5">Изучай теорию для экспериментов!</p></div>
+  <div class="cd tc"><h2 class="fs25 fw9 mb4 gt">📖 Шпаргалки</h2><p class="c6 fs12 fw5">Изучай теорию для экспериментов!</p></div>
   <div class="cd"><h3 class="fs2 fw9 mb8 tc c8">🧠 Основы Химии</h3><div class="gr mg2 g4">${TT.map(t=>`<div class="tcd"><div class="fx ac g3 mb4"><div style="font-size:2.5rem;background:rgba(99,102,241,.1);padding:.75rem;border-radius:1rem">${t[1]}</div><h4 class="fs15 fw9 ci">${t[0]}</h4></div><p class="c7 mb6 fw5" style="line-height:1.6">${t[2]}</p><div class="tf"><span>💡</span><span>${t[3]}</span></div></div>`).join('')}</div></div>
   <div class="cd" style="background:linear-gradient(135deg,rgba(99,102,241,.05),rgba(59,130,246,.1))"><h3 class="fs2 fw9 mb8 tc ci">⚛️ Строение Атома</h3><div class="gr mg3 g4">${AS.map(a=>`<div class="atcd"><h4 class="fw9 fs15 mb4 ci">${a[0]}</h4><div class="fx jc g3 mb4 fs87"><div style="background:var(--s1);padding:.25rem .75rem;border-radius:.5rem"><span class="c5">Заряд:</span> <b style="color:${a[1].includes('+')?'var(--ro)':a[1].includes('-')?'#3b82f6':'var(--s6)'}">${a[1]}</b></div><div style="background:var(--s1);padding:.25rem .75rem;border-radius:.5rem"><span class="c5">Масса:</span> <b>${a[2]}</b></div></div><p class="c7 fw5">${a[3]}</p></div>`).join('')}</div></div>
   <div class="cd"><h3 class="fs2 fw9 mb8 tc" style="color:#059669">🧪 Шкала pH</h3><p class="tc c6 mb8 fw5">Шкала pH: 0 (кислота) — 7 (нейтрально) — 14 (щёлочь)</p><div class="phb"><span>pH 0</span><span>pH 7</span><span>pH 14</span></div><div class="phl"><div class="tc" style="width:33%;color:var(--ro)">Кислота<br><span class="c5 fs75" style="font-weight:400">Лимон, желудок</span></div><div class="tc" style="width:33%;color:var(--em)">Нейтрально<br><span class="c5 fs75" style="font-weight:400">Вода, кровь</span></div><div class="tc" style="width:33%;color:var(--i5)">Щёлочь<br><span class="c5 fs75" style="font-weight:400">Мыло</span></div></div></div>
-  <div class="cd"><h3 class="fs2 fw9 mb8 tc c8">🔗 Химические Связи</h3><div class="gr mg2 g4">${BT.map(b=>`<div class="bcd${S.lb.includes(b[0])?' lr':''}"><div class="fx ac jb mb4"><div class="fx ac g3"><span style="font-size:2rem;background:var(--s1,#f8fafc);padding:.5rem;border-radius:.75rem">${b[3]}</span><h4 class="fs12 fw9 c8">${b[0]}</h4></div>${S.lb.includes(b[0])?'<span style="font-size:1.25rem;background:#d1fae5;padding:.5rem;border-radius:9999px">✅</span>':''}</div><p class="c6 fw5 mb6">${b[1]}</p><div style="background:var(--s1,#f8fafc);border-radius:.75rem;padding:.75rem;border:1px solid var(--s1);display:flex;justify-content:space-between;align-items:center"><span class="ril">Примеры</span><span class="fw9 ci tk">${b[2]}</span></div></div>`).join('')}</div></div>`;
+  <div class="cd"><h3 class="fs2 fw9 mb8 tc c8">🔗 Химические Связи</h3><div class="gr mg2 g4">${BT.map(b=>`<div class="bcd"><div class="fx ac jb mb4"><div class="fx ac g3"><span style="font-size:2rem;background:var(--s1,#f8fafc);padding:.5rem;border-radius:.75rem">${b[3]}</span><h4 class="fs12 fw9 c8">${b[0]}</h4></div></div><p class="c6 fw5 mb6">${b[1]}</p><div style="background:var(--s1,#f8fafc);border-radius:.75rem;padding:.75rem;border:1px solid var(--s1);display:flex;justify-content:space-between;align-items:center"><span class="ril">Примеры</span><span class="fw9 ci tk">${b[2]}</span></div></div>`).join('')}</div></div>`;
 }
 
 // === PERIODIC ===
@@ -321,16 +321,24 @@ function selEl2(n){
 // === LAB ===
 function rLab(){
   document.getElementById('lab').innerHTML=`
-  <div class="cd fx ac jb fw g3"><div><h2 class="fs2 fw9 gt mb2">⚗️ Лаборатория</h2><p class="c6 fw5">Комбинируй элементы слева.</p></div>
-  <div class="fx g2 fw"><div class="cd tc" style="padding:1rem;background:rgba(255,255,255,.8)"><div class="c4 fs75 fw7 up tk mb2">Счёт</div><div class="fs17 fw9 ci" id="lsS">${S.gs}</div></div><div class="cd tc" style="padding:1rem;background:rgba(255,255,255,.8)"><div class="c4 fs75 fw7 up tk mb2">Открыто</div><div class="fs17 fw9 ce"><span id="lsC">${S.cc.length}</span><span class="c4 fs87">/12</span></div></div><div class="cd tc" style="padding:1rem;background:rgba(255,255,255,.8)"><div class="c4 fs75 fw7 up tk mb2">Комбо</div><div class="fs17 fw9" style="color:#f97316" id="lsK">${S.st} 🔥</div></div></div></div>
+  <div class="cd" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+    <div><h2 class="fs2 fw9 gt mb2">⚗️ Лаборатория</h2><p class="c6 fw5">Комбинируй элементы слева.</p></div>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <div style="background:rgba(255,255,255,.8);border-radius:1rem;padding:1rem;text-align:center;border:1px solid #fff"><div class="c4 fs75 fw7 up tk mb2">Счёт</div><div class="fs17 fw9 ci" id="lsS">${S.gs}</div></div>
+      <div style="background:rgba(255,255,255,.8);border-radius:1rem;padding:1rem;text-align:center;border:1px solid #fff"><div class="c4 fs75 fw7 up tk mb2">Открыто</div><div class="fs17 fw9 ce"><span id="lsC">${S.cc.length}</span><span class="c4 fs87">/12</span></div></div>
+      <div style="background:rgba(255,255,255,.8);border-radius:1rem;padding:1rem;text-align:center;border:1px solid #fff"><div class="c4 fs75 fw7 up tk mb2">Комбо</div><div class="fs17 fw9" style="color:#f97316" id="lsK">${S.st} 🔥</div></div>
+    </div>
+  </div>
   <div class="lg"><div class="lp"><div class="lh"><h3 class="fw9 c8 fs12">📦 Шкаф элементов</h3><span class="fs75 fw9 ci up tk" style="background:rgba(99,102,241,.1);padding:.375rem .75rem;border-radius:.75rem">Выбери 2</span></div>
-  <div class="eg hs2" id="meG" style="max-height:600px;overflow-y:auto;padding-bottom:1rem"></div></div>
-  <div class="lp rx"><h3 style="position:absolute;top:1.5rem;width:100%;text-align:center;font-size:1.5rem;font-weight:900;color:var(--i6)">⚗️ Реактор</h3>
-  <div id="mxP" class="tc" style="position:absolute;top:4rem;width:100%;z-index:10"></div>
-  <div class="ra" id="rxA"><div class="rp">Добавь элементы из шкафа,<br>чтобы начать синтез</div></div>
-  <div id="pBar" class="pbt hid"><div class="pbk"><div class="pbf" id="pFill" style="width:0"></div></div><div class="tc fs75 fw9 up tk ci mt4" style="animation:float 1s infinite">Синтез... <span id="pPct">0</span>%</div></div>
-  <div id="resC" class="hid"></div>
-  <div class="rbt"><button class="rb rbc" onclick="clrR()">Очистить</button><button class="rb rbm" id="mxB" onclick="tryMix()" disabled>Смешать</button></div></div></div>
+  <div class="eg hs2" id="meG" style="max-height:700px;overflow-y:auto;padding-bottom:1.5rem"></div></div>
+  <div class="lp" style="display:flex;flex-direction:column;min-height:500px">
+    <h3 class="tc fs17 fw9 ci mb4">⚗️ Реактор</h3>
+    <div id="mxP" class="tc mb4"></div>
+    <div class="ra" id="rxA" style="flex:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1rem"><div class="rp">Добавь элементы из шкафа,<br>чтобы начать синтез</div></div>
+    <div id="pBar" class="pbt hid"><div class="pbk"><div class="pbf" id="pFill" style="width:0"></div></div><div class="tc fs75 fw9 up tk ci mt4" style="animation:float 1s infinite">Синтез... <span id="pPct">0</span>%</div></div>
+    <div id="resC" class="hid"></div>
+    <div class="rbt"><button class="rb rbc" onclick="clrR()">Очистить</button><button class="rb rbm" id="mxB" onclick="tryMix()" disabled>Смешать</button></div>
+  </div></div>
   <div id="colS" class="cd${S.cc.length?'':' hid'}"><h3 class="fs17 fw9 tc c8 mb6">🏆 Журнал открытий</h3><div class="cg" id="colG"></div></div>`;
   rMeG();rColG();
 }
@@ -350,7 +358,7 @@ function hElC(sym){
 function rRxA(){
   let a=document.getElementById('rxA');
   if(!selEl.length){a.innerHTML='<div class="rp">Добавь элементы из шкафа,<br>чтобы начать синтез</div>';return}
-  let h='';selEl.forEach((e,i)=>{h+=`<div class="re ${e[2]}">${e[3]}</div>`;if(i===0&&selEl.length===2)h+=`<span class="rpl${mixing?' '+' style="animation:spin 1s linear infinite"':''}">+</span>`});
+  let h='';selEl.forEach((e,i)=>{h+=`<div class="re ${e[2]}">${e[3]}</div>`;if(i===0&&selEl.length===2)h+=`<span class="rpl"${mixing?' style="animation:spin 1s linear infinite"':''}>+</span>`});
   if(mixing)h+='<span class="rpl">→</span><div class="rmx">⚡</div>';
   a.innerHTML=h;
 }
