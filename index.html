@@ -620,22 +620,6 @@
             </div>
           )}
 
-          {/* Помощник Лаборант */}
-          {showLabAssistant && (
-            <div className="fixed bottom-6 left-6 z-40 animate-fade-in-up">
-              <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-4 border border-white max-w-xs transition-transform hover:scale-105">
-                <div className="flex flex-row items-center gap-4">
-                  <div className="text-5xl bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full p-2 shadow-inner">👨‍🔬</div>
-                  <div className="flex-1">
-                    <div className="text-xs font-black text-indigo-600 mb-1 uppercase tracking-wide">Профессор</div>
-                    <div className="text-sm text-slate-700 font-medium leading-tight">{assistantMessage}</div>
-                  </div>
-                  <button onClick={() => setShowLabAssistant(false)} className="text-slate-400 hover:text-rose-500 transition-colors p-1 text-xl">✕</button>
-                </div>
-              </div>
-            </div>
-          )}
-
           {/* Улучшенная навигация */}
           <nav className="bg-white/40 backdrop-blur-xl shadow-sm sticky top-0 z-40 border-b border-white/60">
             <div className="max-w-7xl mx-auto px-4 py-3">
