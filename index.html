@@ -1,13 +1,485 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Уроки Химии - Интерактивное Обучение</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Уроки Химии</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--i5:#6366f1;--i6:#4f46e5;--p5:#a855f7;--p6:#9333ea;--pk:#ec4899;--em:#10b981;--ro:#f43f5e;--am:#f59e0b;--s1:#f1f5f9;--s2:#e2e8f0;--s3:#cbd5e1;--s4:#94a3b8;--s5:#64748b;--s6:#475569;--s7:#334155;--s8:#1e293b}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;color:#334155;background:#f8fafc;overflow-x:hidden}
+@keyframes blob{0%{transform:translate(0,0) scale(1)}33%{transform:translate(50px,-50px) scale(1.1)}66%{transform:translate(-40px,30px) scale(.9)}100%{transform:translate(0,0) scale(1)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pop{0%{opacity:0;transform:scale(.9)}100%{opacity:1;transform:scale(1)}}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.abl{animation:blob 15s infinite alternate ease-in-out}.ad2{animation-delay:2s}.ad4{animation-delay:4s}.ad6{animation-delay:6s}
+.afl{animation:float 3s ease-in-out infinite}.afu{animation:fadeUp .5s ease-out forwards}.apo{animation:pop .4s ease-out forwards}
+.bgb{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.bl{position:absolute;border-radius:50%;mix-blend-mode:multiply;filter:blur(100px)}
+.bl1{top:-10%;left:-10%;width:40rem;height:40rem;background:#d8b4fe;opacity:.6}
+.bl2{top:20%;right:-10%;width:35rem;height:35rem;background:#67e8f9;opacity:.6}
+.bl3{bottom:-20%;left:20%;width:45rem;height:45rem;background:#f9a8d4;opacity:.6}
+.bl4{bottom:10%;right:20%;width:30rem;height:30rem;background:#fef08a;opacity:.5}
+nav{background:rgba(255,255,255,.4);backdrop-filter:blur(20px);position:sticky;top:0;z-index:40;border-bottom:1px solid rgba(255,255,255,.6);padding:.75rem 1rem}
+.nc{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;max-width:1280px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:.75rem;cursor:pointer}
+.logo span{font-size:2rem;transition:transform .3s}.logo:hover span{transform:rotate(12deg)}
+.lt{font-size:1.5rem;font-weight:900;background:linear-gradient(to right,var(--i6),var(--p6),var(--pk));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ls{font-size:.6rem;color:var(--s5);font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.lb{display:flex;align-items:center;gap:.75rem;padding:.5rem 1rem;border-radius:1rem;color:#fff;cursor:pointer;transition:transform .3s}
+.lb:hover{transform:translateY(-2px)}
+.le{font-size:1.75rem}.li{display:none}
+@media(min-width:768px){.li{display:block}}
+.ll{font-size:.6rem;opacity:.9;text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+.ln{font-size:1.1rem;font-weight:900}
+.xp{background:rgba(0,0,0,.2);padding:.375rem 1rem;border-radius:9999px;margin-left:.5rem;font-weight:900;font-size:1.1rem}
+.nb{display:flex;gap:.25rem;flex-wrap:wrap;justify-content:center;width:100%;background:rgba(255,255,255,.4);padding:.375rem;border-radius:1.5rem;border:1px solid rgba(255,255,255,.6)}
+@media(min-width:1024px){.nb{width:auto}}
+.nt{display:flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border-radius:1rem;border:none;background:0;color:var(--s6);font-weight:700;cursor:pointer;transition:all .3s;font-size:.875rem}
+.nt:hover{color:var(--i6);background:rgba(255,255,255,.8)}
+.nt.ac{background:linear-gradient(to right,var(--i5),var(--p5));color:#fff}
+.ni{font-size:1.1rem;transition:transform .3s}.nt:hover .ni{transform:scale(1.2) rotate(-6deg)}
+.nx{display:none}@media(min-width:768px){.nx{display:inline}}
+main{padding:2rem 1rem;max-width:1280px;margin:0 auto;position:relative;z-index:10}
+.sec{display:none}.sec.on{display:block}
+.cd{background:rgba(255,255,255,.6);backdrop-filter:blur(12px);border-radius:1.5rem;padding:2rem;border:1px solid #fff;box-shadow:0 4px 6px -1px rgba(0,0,0,.05);margin-bottom:1.5rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.75rem;padding:1rem 2rem;border-radius:1rem;font-weight:800;font-size:1rem;border:none;cursor:pointer;transition:all .3s;text-transform:uppercase;letter-spacing:.05em}
+.btn:hover{transform:translateY(-2px)}.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.bp{background:linear-gradient(to right,var(--i5),var(--p6));color:#fff;box-shadow:0 4px 14px rgba(99,102,241,.3)}
+.bs{background:#fff;color:var(--s7);border:1px solid var(--s2)}
+.bw{background:#fff;color:var(--i6);box-shadow:0 10px 25px rgba(0,0,0,.1)}
+.bg{background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.5);color:#fff}
+.gt{background:linear-gradient(to right,var(--i6),var(--p6),var(--pk));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tc{text-align:center}.fw9{font-weight:900}.fw7{font-weight:700}.fw5{font-weight:500}
+.fs75{font-size:.75rem}.fs87{font-size:.875rem}.fs1{font-size:1rem}.fs12{font-size:1.125rem}
+.fs15{font-size:1.25rem}.fs17{font-size:1.5rem}.fs2{font-size:1.875rem}.fs25{font-size:2.25rem}
+.fs3{font-size:3rem}.fs4{font-size:3.75rem}.fs5{font-size:4.5rem}
+.up{text-transform:uppercase}.tk{letter-spacing:.1em}
+.c4{color:var(--s4)}.c5{color:var(--s5)}.c6{color:var(--s6)}.c7{color:var(--s7)}.c8{color:var(--s8)}
+.ci{color:var(--i6)}.ce{color:var(--em)}.cr{color:var(--ro)}
+.fx{display:flex}.fw{flex-wrap:wrap}.fc{flex-direction:column}.ac{align-items:center}.jc{justify-content:center}.jb{justify-content:space-between}.f1{flex:1}
+.g1{gap:.5rem}.g2{gap:.75rem}.g3{gap:1rem}.g4{gap:1.5rem}
+.mb2{margin-bottom:.5rem}.mb4{margin-bottom:1rem}.mb6{margin-bottom:1.5rem}.mb8{margin-bottom:2rem}.mt4{margin-top:1rem}.mt6{margin-top:1.5rem}
+.gr{display:grid;gap:1rem}
+@media(min-width:768px){.mg2{grid-template-columns:repeat(2,1fr)}.mg3{grid-template-columns:repeat(3,1fr)}.mg6{grid-template-columns:repeat(6,1fr)}.mg10{grid-template-columns:repeat(10,1fr)}}
+@media(min-width:1024px){.lg5{grid-template-columns:repeat(5,1fr)}}
+.hero{background:linear-gradient(135deg,var(--i6),var(--p6),var(--pk));border-radius:1.5rem;padding:4rem 2rem;text-align:center;color:#fff;position:relative;overflow:hidden;box-shadow:0 25px 50px -12px rgba(0,0,0,.25)}
+.hero::before{content:'';position:absolute;inset:0;opacity:.1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='2' cy='2' r='2' fill='%23fff'/%3E%3C/svg%3E")}
+.ht{font-size:2.5rem;font-weight:900;margin-bottom:1rem;text-shadow:0 2px 10px rgba(0,0,0,.2);position:relative}
+@media(min-width:768px){.ht{font-size:4rem}}
+.hs{font-size:1.125rem;margin-bottom:2rem;opacity:.9;max-width:600px;margin-left:auto;margin-right:auto;position:relative}
+.hb{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;position:relative}
+.sg{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+@media(min-width:768px){.sg{grid-template-columns:repeat(6,1fr)}}
+.sc{background:rgba(255,255,255,.6);backdrop-filter:blur(12px);border-radius:1rem;padding:1.25rem;text-align:center;border:1px solid rgba(255,255,255,.5);transition:transform .3s}
+.sc:hover{transform:translateY(-4px)}
+.si{font-size:2rem;margin-bottom:.5rem}.sv{font-size:1.75rem;font-weight:900}.sl{font-size:.65rem;color:var(--s5);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-top:.25rem}
+.ag{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+@media(min-width:768px){.ag{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1024px){.ag{grid-template-columns:repeat(5,1fr)}}
+.ak{padding:1.25rem;border-radius:1rem;text-align:center;transition:all .3s}
+.ak.lk{background:rgba(248,250,252,.5);border:1px solid var(--s1);opacity:.6;filter:grayscale(1)}
+.ak.ul{background:linear-gradient(135deg,#fef9c3,#fed7aa);border:1px solid #fcd34d;box-shadow:0 4px 15px rgba(0,0,0,.05)}
+.ak.ul:hover{transform:scale(1.05)}
+.ai{font-size:2.5rem;margin-bottom:.75rem}
+.eb{aspect-ratio:1;border-radius:1rem;padding:.5rem;border:none;cursor:pointer;color:#fff;transition:all .3s;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.eb:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 10px 25px rgba(0,0,0,.15)}
+.eb.sel{box-shadow:0 0 0 4px #fbbf24,0 0 20px rgba(251,191,36,.4);transform:scale(1.1);z-index:10}
+.en{font-size:.6rem;font-weight:700;opacity:.8;align-self:flex-start}
+.ey{font-size:1.5rem;font-weight:900}@media(min-width:768px){.ey{font-size:1.75rem}}
+.ee{font-size:1.25rem}
+.ed{background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-radius:1.5rem;padding:2rem;margin-top:2rem;border:1px solid #fff;box-shadow:0 25px 50px -12px rgba(0,0,0,.1)}
+.edh{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.edi{width:8rem;height:8rem;border-radius:1.5rem;display:flex;align-items:center;justify-content:center;font-size:4rem;flex-shrink:0}
+.ep{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;margin-top:1.5rem}
+@media(min-width:768px){.ep{grid-template-columns:repeat(4,1fr)}}
+.epi{background:#f8fafc;border-radius:1rem;padding:1rem;border:1px solid var(--s1)}
+.epl{font-size:.6rem;color:var(--s4);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.25rem}
+.epv{font-size:1.25rem;font-weight:900;color:var(--s7)}
+.ef{margin-top:1.5rem;background:linear-gradient(to right,rgba(99,102,241,.1),rgba(168,85,247,.1));border-radius:1rem;padding:1.5rem;border:1px solid rgba(99,102,241,.1)}
+.lg{display:grid;gap:1.5rem}@media(min-width:1024px){.lg{grid-template-columns:5fr 7fr}}
+.lp{background:rgba(255,255,255,.5);backdrop-filter:blur(20px);border-radius:1.5rem;padding:1.5rem;border:1px solid #fff;box-shadow:0 10px 25px rgba(0,0,0,.05)}
+.lh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;padding:1rem;background:rgba(255,255,255,.8);border-radius:1rem;border:1px solid #fff}
+.eg{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+@media(min-width:640px){.eg{grid-template-columns:repeat(3,1fr)}}
+.me{aspect-ratio:1;border-radius:1.5rem;padding:1rem;border:2px solid rgba(255,255,255,.2);cursor:pointer;color:#fff;transition:all .3s;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.me:hover{transform:translateY(-8px) scale(1.05);box-shadow:0 20px 40px rgba(0,0,0,.15)}
+.me.sel{box-shadow:0 0 0 4px #fbbf24,0 0 30px rgba(251,191,36,.4);transform:scale(1.08);z-index:10}
+.me.dis{opacity:.4;cursor:not-allowed;filter:grayscale(1)}
+.mei{font-size:2.5rem;margin-bottom:.5rem}.mes{font-size:1.75rem;font-weight:900}
+.men{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-top:.25rem}
+.mev{position:absolute;bottom:-.75rem;background:#fff;color:var(--s8);font-size:.6rem;font-weight:900;text-transform:uppercase;padding:.375rem 1rem;border-radius:9999px;box-shadow:0 4px 10px rgba(0,0,0,.1);border:1px solid var(--s1);white-space:nowrap}
+.rx{min-height:500px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.ra{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1rem;min-height:10rem;margin-top:3rem}
+.rp{color:var(--s5);font-size:1rem;font-weight:500;background:rgba(255,255,255,.6);padding:1.5rem 2rem;border-radius:1.5rem;border:2px dashed var(--s3);text-align:center}
+.re{width:7rem;height:7rem;border-radius:1.5rem;display:flex;align-items:center;justify-content:center;font-size:3rem;box-shadow:0 10px 25px rgba(0,0,0,.1);border:2px solid rgba(255,255,255,.2)}
+.rpl{font-size:2.5rem;font-weight:900;color:var(--s4)}
+.rmx{width:7rem;height:7rem;border-radius:1.5rem;display:flex;align-items:center;justify-content:center;font-size:3rem;background:linear-gradient(135deg,#fbbf24,#f97316,#ef4444);box-shadow:0 10px 30px rgba(249,115,22,.4);animation:float 1s infinite}
+.pbt{max-width:20rem;margin:2rem auto 0;width:100%}
+.pbk{height:1rem;background:rgba(255,255,255,.8);border-radius:9999px;overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.1);border:1px solid var(--s2)}
+.pbf{height:100%;background:linear-gradient(to right,#60a5fa,var(--p5),var(--pk));transition:width .1s}
+.rc{margin-top:2rem;max-width:28rem;margin-left:auto;margin-right:auto;border-radius:1.5rem;padding:2rem;text-align:center;background:#fff;border:2px solid;box-shadow:0 25px 50px -12px rgba(0,0,0,.1)}
+.rc.ok{border-color:#34d399}.rc.no{border-color:#fb7185}
+.rcf{font-size:3rem;font-weight:900;letter-spacing:.1em;margin-bottom:.5rem}
+.ri{background:#f8fafc;border-radius:.75rem;padding:.75rem;border:1px solid var(--s1);display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
+.ril{font-size:.6rem;color:var(--s4);font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+.riv{font-weight:700;color:var(--s7);font-size:.875rem}
+.rbt{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-top:2rem}
+.rb{padding:1rem 1.5rem;border-radius:1rem;font-weight:800;font-size:.875rem;border:none;cursor:pointer;transition:all .3s;text-transform:uppercase;letter-spacing:.1em}
+.rb:hover:not(:disabled){transform:translateY(-4px)}.rb:disabled{opacity:.5;cursor:not-allowed}
+.rbc{background:rgba(255,255,255,.8);color:var(--s6);border:1px solid var(--s2);flex:1;max-width:150px}
+.rbm{background:linear-gradient(to right,var(--i5),var(--p6));color:#fff;box-shadow:0 10px 20px rgba(99,102,241,.3);flex:2;max-width:280px}
+.rbm:disabled{background:rgba(255,255,255,.6);color:var(--s4);box-shadow:none;border:1px solid var(--s2)}
+.cg{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+@media(min-width:640px){.cg{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:768px){.cg{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:1024px){.cg{grid-template-columns:repeat(6,1fr)}}
+.ci2{border-radius:1rem;padding:1.25rem;text-align:center;color:#fff;box-shadow:0 4px 15px rgba(0,0,0,.1);transition:all .3s;border:2px solid rgba(255,255,255,.2)}
+.ci2:hover{transform:translateY(-4px) scale(1.05)}
+.mmg{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;max-width:600px;margin:0 auto}
+@media(min-width:768px){.mmg{gap:1rem}}
+.mc{aspect-ratio:1;border-radius:1rem;border:2px solid rgba(255,255,255,.2);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all .3s;font-weight:900}
+.mc:hover:not(.fl):not(.mt2){transform:translateY(-4px) scale(1.05);box-shadow:0 10px 25px rgba(0,0,0,.1)}
+.mc.hd{background:linear-gradient(135deg,#cbd5e1,#94a3b8);color:var(--s4)}
+.mc.fl{color:#fff;box-shadow:inset 0 2px 10px rgba(0,0,0,.1)}
+.mc.mt2{opacity:.5;transform:scale(.95)}
+.qo{width:100%;padding:1rem;border-radius:.75rem;text-align:left;transition:all .3s;font-size:1rem;font-weight:700;background:#fff;border:2px solid #fff;color:var(--s7);cursor:pointer;margin-bottom:.75rem;display:block}
+.qo:hover{border-color:rgba(99,102,241,.3);background:var(--s1)}
+.qo.qs{background:rgba(99,102,241,.1);border-color:var(--i5);color:var(--i6);transform:scale(1.02)}
+.qp{width:100%;height:.75rem;background:#fff;border-radius:9999px;overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.05);border:1px solid var(--s1);margin-bottom:2rem}
+.qpf{height:100%;background:linear-gradient(to right,#fb7185,var(--i5));transition:width .3s}
+.chc{background:rgba(255,255,255,.8);backdrop-filter:blur(12px);border-radius:1.5rem;padding:1.5rem;border:1px solid #fff;transition:all .3s}
+.chc:hover{transform:translateY(-4px);box-shadow:0 10px 25px rgba(0,0,0,.1)}
+.chc.cp{background:rgba(209,250,229,.5);border-color:#6ee7b7}
+.chp{height:.75rem;background:#fff;border-radius:9999px;overflow:hidden;border:1px solid var(--s1)}
+.chpf{height:100%;background:linear-gradient(to right,#8b5cf6,#d946ef);transition:width .5s}
+.chpf.cp{background:#34d399}
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.4);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:50;padding:1rem}
+.md{background:#fff;border-radius:1.5rem;padding:2.5rem;max-width:400px;width:100%;text-align:center;box-shadow:0 25px 50px -12px rgba(0,0,0,.25)}
+.ap{position:fixed;top:6rem;right:1rem;z-index:50;background:linear-gradient(to right,#fbbf24,#f97316,#ef4444);color:#fff;padding:1.25rem;border-radius:1rem;box-shadow:0 25px 50px -12px rgba(0,0,0,.25);border:2px solid rgba(255,255,255,.5);display:none}
+.ap.sh{display:flex;animation:pop .4s ease-out}
+.as{position:fixed;bottom:1.5rem;left:1.5rem;z-index:40;background:rgba(255,255,255,.8);backdrop-filter:blur(12px);border-radius:1rem;box-shadow:0 10px 25px rgba(0,0,0,.1);padding:1rem;border:1px solid #fff;max-width:280px;transition:transform .3s}
+.as:hover{transform:scale(1.03)}
+.asc{position:absolute;top:.5rem;right:.5rem;background:0;border:none;color:var(--s4);cursor:pointer;font-size:1.25rem;padding:.25rem}
+.asc:hover{color:var(--ro)}
+.hid{display:none!important}
+.hs2::-webkit-scrollbar{display:none}.hs2{-ms-overflow-style:none;scrollbar-width:none}
+.gblu{background:linear-gradient(135deg,#60a5fa,#3b82f6)}.gros{background:linear-gradient(135deg,#fb7185,#f43f5e)}
+.gpur{background:linear-gradient(135deg,#c084fc,#a855f7)}.gfuc{background:linear-gradient(135deg,#e879f9,#d946ef)}
+.geme{background:linear-gradient(135deg,#34d399,#10b981)}.gamb{background:linear-gradient(135deg,#fbbf24,#f59e0b)}
+.gora{background:linear-gradient(135deg,#fb923c,#f97316)}.gsla{background:linear-gradient(135deg,#64748b,#475569)}
+.gind{background:linear-gradient(135deg,#818cf8,#6366f1)}.gcya{background:linear-gradient(135deg,#22d3ee,#06b6d4)}
+.gyel{background:linear-gradient(135deg,#facc15,#eab308)}.gtea{background:linear-gradient(135deg,#2dd4bf,#14b8a6)}
+.gvio{background:linear-gradient(135deg,#a78bfa,#8b5cf6)}.ggra{background:linear-gradient(135deg,#9ca3af,#6b7280)}
+.gdka{background:linear-gradient(135deg,#d97706,#b45309)}
+.tcd{background:rgba(255,255,255,.8);padding:1.5rem;border-radius:1rem;border:1px solid rgba(99,102,241,.1);transition:all .3s}
+.tcd:hover{transform:translateY(-4px);box-shadow:0 10px 25px rgba(0,0,0,.05)}
+.tf{background:rgba(99,102,241,.05);padding:1rem;border-radius:.75rem;display:flex;gap:.75rem;align-items:flex-start;border-left:4px solid var(--i5);font-size:.875rem;color:var(--i6);font-weight:500}
+.bcd{background:rgba(255,255,255,.9);border-radius:1rem;padding:1.5rem;border:1px solid var(--s1);transition:box-shadow .3s}
+.bcd:hover{box-shadow:0 10px 25px rgba(0,0,0,.05)}
+.bcd.lr{border:2px solid #34d399;background:rgba(209,250,229,.2)}
+.atcd{background:rgba(255,255,255,.9);border-radius:1rem;padding:1.5rem;border:1px solid #fff;text-align:center;transition:transform .3s}
+.atcd:hover{transform:scale(1.05)}
+.phb{width:100%;height:3rem;border-radius:9999px;background:linear-gradient(to right,#f43f5e,#34d399,#6366f1);display:flex;align-items:center;justify-content:space-between;padding:0 1rem;color:#fff;font-weight:900;max-width:800px;margin:0 auto 1rem}
+.phl{display:flex;justify-content:space-between;max-width:800px;margin:0 auto 3rem;font-size:.875rem;font-weight:700}
+footer{background:rgba(255,255,255,.3);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.5);margin-top:4rem;padding:2rem;text-align:center;position:relative;z-index:10}
+</style>
+</head>
+<body>
+<div class="bgb"><div class="bl bl1 abl"></div><div class="bl bl2 abl ad2"></div><div class="bl bl3 abl ad4"></div><div class="bl bl4 abl ad6"></div></div>
+<div id="ap" class="ap"><div style="font-size:3rem;margin-right:1rem" id="apI">🏆</div><div><div class="fw9 fs15" id="apN"></div><div class="fs87" style="opacity:.9" id="apD"></div><div class="fs75 mt4" style="background:rgba(0,0,0,.2);padding:.25rem .75rem;border-radius:9999px;display:inline-block;font-weight:700">+15 XP</div></div></div>
+<div id="ast" class="as"><button class="asc" onclick="this.parentElement.style.display='none'">✕</button><div class="fx ac g3"><div style="font-size:3rem;background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(168,85,247,.1));border-radius:9999px;padding:.5rem">👨‍🔬</div><div><div style="font-size:.6rem;font-weight:900;color:var(--i6);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.25rem">Профессор</div><div class="fs87 c7 fw5" id="amsg">Привет, юный химик! 🧪</div></div></div></div>
+<nav><div class="nc">
+<div class="logo" onclick="go('home')"><span>🧪</span><div><div class="lt">Уроки Химии</div><div class="ls">Интерактивная наука</div></div></div>
+<div id="lvl" class="lb geme"><span class="le afl">🌱</span><div class="li"><div class="ll">Уровень 1</div><div class="ln">Новичок</div></div><div class="xp"><span id="txp">0</span> <span style="font-size:.6rem;opacity:.8">XP</span></div></div>
+<div class="nb" id="navb"></div>
+</div></nav>
+<main>
+<section id="home" class="sec on"></section>
+<section id="learn" class="sec"></section>
+<section id="periodic" class="sec"></section>
+<section id="lab" class="sec"></section>
+<section id="memory" class="sec"></section>
+<section id="quiz" class="sec"></section>
+<section id="challenges" class="sec"></section>
+</main>
+<footer><div style="font-size:1.5rem;cursor:pointer;display:inline-block;transition:transform .3s" onmouseover="this.style.transform='rotate(12deg)'" onmouseout="this.style.transform=''">🧪</div><div class="fw9 c8 up tk fs87 mb2">Уроки Химии</div><p class="c5" style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em">Интерактивная платформа © 2026</p></footer>
+
+<script>
+// === DATA (compact) ===
+const PT=[['H','Водород',1,1.008,'gblu','💧','Самый лёгкий элемент!','1',1,1,1,'Газ','1766'],['He','Гелий',2,4.003,'gpur','🎈','Для воздушных шаров!','2',18,1,0,'Газ','1868'],['Li','Литий',3,6.941,'gros','🔋','В аккумуляторе телефона!','2,1',1,2,1,'Твёрдое','1817'],['Be','Бериллий',4,9.012,'gora','💎','Лёгкий и прочный!','2,2',2,2,2,'Твёрдое','1798'],['B','Бор',5,10.81,'geme','🌿','Нужен растениям!','2,3',13,2,3,'Твёрдое','1808'],['C','Углерод',6,12.01,'gsla','💎','Основа жизни!','2,4',14,2,4,'Твёрдое','Древность'],['N','Азот',7,14.01,'gind','💨','78% воздуха!','2,5',15,2,3,'Газ','1772'],['O','Кислород',8,16.00,'gros','💨','Для дыхания!','2,6',16,2,2,'Газ','1774'],['F','Фтор',9,19.00,'gyel','🦷','В зубной пасте!','2,7',17,2,1,'Газ','1886'],['Ne','Неон',10,20.18,'gfuc','💡','В рекламных вывесках!','2,8',18,2,0,'Газ','1898'],['Na','Натрий',11,22.99,'gfuc','🧂','Взрывается в воде!','2,8,1',1,3,1,'Твёрдое','1807'],['Mg','Магний',12,24.31,'gamb','🔥','Горит белым!','2,8,2',2,3,2,'Твёрдое','1808'],['Al','Алюминий',13,26.98,'ggra','🥫','Самый распространённый!','2,8,3',13,3,3,'Твёрдое','1825'],['Si','Кремний',14,28.09,'gtea','💻','Основа компьютеров!','2,8,4',14,3,4,'Твёрдое','1823'],['P','Фосфор',15,30.97,'gora','🔥','Светится в темноте!','2,8,5',15,3,3,'Твёрдое','1669'],['S','Сера',16,32.07,'gyel','🌋','Запах тухлых яиц!','2,8,6',16,3,2,'Твёрдое','Древность'],['Cl','Хлор',17,35.45,'geme','🏊','В бассейне!','2,8,7',17,3,1,'Газ','1774'],['Ar','Аргон',18,39.95,'gcya','💡','Газ в лампочках!','2,8,8',18,3,0,'Газ','1894'],['K','Калий',19,39.10,'gvio','🍌','В бананах!','2,8,8,1',1,4,1,'Твёрдое','1807'],['Ca','Кальций',20,40.08,'gros','🦴','Крепкие кости!','2,8,8,2',2,4,2,'Твёрдое','1808']];
+const ME=[['H','Водород','gblu','💧',1],['O','Кислород','gros','💨',2],['Na','Натрий','gfuc','🧂',1],['Cl','Хлор','geme','🏊',1],['C','Углерод','gsla','💎',4],['Ca','Кальций','gros','🦴',2],['Fe','Железо','gdka','🔨',3],['S','Сера','gyel','🌋',2],['N','Азот','gind','💨',3],['K','Калий','gvio','🍌',1],['Ag','Серебро','ggra','🥈',1],['Zn','Цинк','gsla','🛡️',2]];
+const VC=[['H','O','H₂O','Вода','Основа жизни!',10,'💧','gblu','Ков.полярная','2H₂+O₂→2H₂O','Человек на 60% из воды!'],['Na','Cl','NaCl','Поваренная соль','Добавляем в еду.',10,'🧂','ggra','Ионная','2Na+Cl₂→2NaCl','В Риме соль была валютой!'],['C','O','CO₂','Углекислый газ','Мы его выдыхаем.',10,'💨','gsla','Ков.полярная','C+O₂→CO₂','Растения поглощают CO₂!'],['H','Cl','HCl','Соляная кислота','В желудке.',15,'🧪','gyel','Ков.полярная','H₂+Cl₂→2HCl','Желудок вырабатывает HCl!'],['Ca','O','CaO','Негашёная известь','Для строительства.',15,'🏗️','ggra','Ионная','2Ca+O₂→2CaO','Римляне делали бетон!'],['Fe','O','Fe₂O₃','Оксид железа','Ржавчина!',20,'🔴','gora','Ионная','4Fe+3O₂→2Fe₂O₃','Марс красный от ржавчины!'],['C','H','CH₄','Метан','Природный газ.',20,'🔥','gblu','Ков.неполярная','C+2H₂→CH₄','Горит голубым пламенем.'],['S','O','SO₂','Сернистый газ','Запах спички.',15,'😷','gyel','Ков.полярная','S+O₂→SO₂','Для консервации фруктов.'],['N','H','NH₃','Аммиак','Резкий запах.',20,'👃','gind','Ков.полярная','N₂+3H₂→2NH₃','Удобрение!'],['K','Cl','KCl','Хлорид калия','Калийная соль.',15,'🧂','gvio','Ионная','2K+Cl₂→2KCl','Для работы сердца!'],['Ag','Cl','AgCl','Хлорид серебра','Белый осадок.',25,'☁️','ggra','Ионная','2Ag+Cl₂→2AgCl','В первых фотографиях!'],['Zn','O','ZnO','Оксид цинка','Защита кожи.',20,'🛡️','ggra','Ионная','2Zn+O₂→2ZnO','В солнцезащитных кремах!']];
+const TT=[['Атомы и Молекулы','⚛️','Все вещества состоят из атомов. Атомы соединяются в молекулы. Вода (H₂O) = 2 водорода + 1 кислород.','В капле воды больше молекул, чем звёзд во Вселенной!'],['Агрегатные состояния','🧊','Твёрдые, жидкие, газообразные. Переходы: плавление, кипение, конденсация, кристаллизация.','Есть 4-е состояние — плазма! Из неё состоят звёзды.'],['Химические реакции','🔥','Превращение одних веществ в другие. Признаки: цвет, газ, осадок, тепло, свет.','Ржавление и горение — одна реакция (окисление)!'],['Законы сохранения','⚖️','Масса не исчезает. Масса реагентов = масса продуктов (Закон Ломоносова).','Атомы в тебе могли быть частью динозавра!']];
+const BT=[['Ионная','Металл отдаёт электроны неметаллу.','NaCl, CaO','🧲'],['Ков. полярная','Общие электроны смещены к сильному атому.','H₂O, HCl','🔗'],['Ков. неполярная','Одинаковые атомы делят электроны поровну.','O₂, N₂, H₂','⚖️'],['Металлическая','Свободные электроны между ионами металла.','Fe, Cu, Al','⚡']];
+const AS=[['Протоны (p⁺)','+1','1','В ядре, определяют элемент.'],['Нейтроны (n⁰)','0','1','В ядре, дают массу.'],['Электроны (e⁻)','-1','≈0','На орбиталях, создают связи.']];
+const ACH=[['first_compound','Первый шаг!','1 соединение','🎉'],['five_compounds','Юный химик','5 соединений','🧪'],['all_compounds','Мастер!','12 соединений','🏆'],['score_50','Накопитель','50 очков','⭐'],['score_100','Виртуоз','100 очков','💎'],['score_200','Легенда','200 очков','👑'],['score_500','Бог химии','500 очков','👼'],['quiz_master','Эрудит','8 правильных','🎓'],['elements_20','Знаток','20 элементов','📚'],['streak_5','Серия!','5 подряд','🔥']];
+const LVL=[[1,'Новичок',0,'🌱','geme'],[2,'Ученик',50,'📖','gblu'],[3,'Лаборант',100,'🧪','gpur'],[4,'Химик',200,'⚗️','gfuc'],[5,'Профессор',350,'👨‍🔬','gora'],[6,'Нобелевский',500,'🏅','gamb']];
+const DC=[[1,'Создай 3 соединения','mix',3,25,'🧪'],[2,'Ответь на 5 вопросов','quiz',5,20,'✅'],[3,'Изучи 5 элементов','study',5,15,'📚'],[4,'Найди 4 пары','memory',4,20,'🎴']];
+const MC=[['H','💧','gblu'],['O','💨','gros'],['Na','🧂','gfuc'],['Cl','🏊','geme'],['C','💎','gsla'],['Fe','🔨','gdka'],['Ca','🦴','gros'],['S','🌋','gyel']];
+const QZ=[['Элемент с номером 1?',['Гелий','Водород','Литий','Кислород'],1],['Отрицательный заряд?',['Протон','Нейтрон','Электрон','Ядро'],2],['pH нейтральной среды?',['0','7','14','10'],1],['Создатель таблицы?',['Эйнштейн','Ньютон','Менделеев','Кюри'],2],['Связь металл-неметалл?',['Ковалентная','Ионная','Металлическая','Водородная'],1],['Формула воды?',['H₂O₂','H₂O','HO₂','H₃O'],1],['Самый лёгкий?',['Гелий','Водород','Литий','Углерод'],1],['Символ золота?',['Go','Gd','Au','Ag'],2],['Валентность O?',['1','2','3','4'],1],['Газ при выдохе?',['Кислород','Азот','CO₂','Водород'],2]];
+const NAV=[['home','🏠','Главная'],['learn','📖','Учебник'],['periodic','📊','Таблица'],['lab','⚗️','Лаборатория'],['memory','🎴','Память'],['quiz','✅','Тест'],['challenges','📅','Квесты']];
+const APHR=[['Привет, юный химик! 🧪','Готов к экспериментам? ⚗️','Добро пожаловать! 🔬'],['Отлично! 🌟','Превосходно! 👏','Ты учёный! 🎓'],['Попробуй ещё! 💪','Терпение! 🚀','Получится! ⭐']];
+
+// === STATE ===
+let S={ts:0,gs:0,ua:[],se:[],cc:[],st:0,dp:{mix:0,quiz:0,study:0,memory:0},cch:[],ls:1,ll:'',lb:[],ms:0};
+let selEl=[],mixing=false,mDeck=[],mFlip=[],mMatch=[],mMov=0,qI=0,qC=0,qA=null,qT=0,qTmr=null;
+
+function init(){
+  let sv=localStorage.getItem('chem5');
+  if(sv){let d=JSON.parse(sv);Object.assign(S,d);let td=new Date().toDateString();if(S.ll!==td){let y=new Date();y.setDate(y.getDate()-1);S.ls=S.ll===y.toDateString()?S.ls+1:S.ll?1:1;S.dp={mix:0,quiz:0,study:0,memory:0};S.cch=[];S.ll=td}}else S.ll=new Date().toDateString();
+  document.getElementById('navb').innerHTML=NAV.map(n=>`<button class="nt${n[0]==='home'?' ac':''}" data-s="${n[0]}" onclick="go('${n[0]}')"><span class="ni">${n[1]}</span><span class="nx">${n[2]}</span></button>`).join('');
+  initMem();render();updLvl();
+  document.getElementById('amsg').textContent=APHR[0][Math.floor(Math.random()*3)];
+}
+
+function save(){localStorage.setItem('chem5',JSON.stringify(S))}
+
+function go(id){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.nt').forEach(b=>b.classList.remove('ac'));
+  let s=document.getElementById(id);if(s){s.classList.add('on');s.classList.add('afu')}
+  let b=document.querySelector(`.nt[data-s="${id}"]`);if(b)b.classList.add('ac');
+  render();
+}
+
+function render(){
+  rHome();rLearn();rPeriodic();rLab();rMem();rQuiz();rChal();updLvl();
+}
+
+function updLvl(){
+  let l=LVL.slice().reverse().find(x=>S.ts>=x[2])||LVL[0];
+  let b=document.getElementById('lvl');b.className='lb '+l[4];
+  b.querySelector('.le').textContent=l[3];b.querySelector('.ll').textContent='Уровень '+l[0];
+  b.querySelector('.ln').textContent=l[1];document.getElementById('txp').textContent=S.ts;
+}
+
+function addS(p){S.ts+=p;updLvl();save();chkA()}
+
+function chkA(){
+  let ck=[[0,S.cc.length>=1],[1,S.cc.length>=5],[2,S.cc.length>=12],[3,S.ts>=50],[4,S.ts>=100],[5,S.ts>=200],[6,S.ts>=500],[8,S.se.length>=20],[9,S.st>=5]];
+  ck.forEach(c=>{if(c[1]&&!S.ua.includes(ACH[c[0]][0])){S.ua.push(ACH[c[0]][0]);showAP(ACH[c[0]]);addS(15)}});
+  rAch();
+}
+
+function showAP(a){
+  let p=document.getElementById('ap');document.getElementById('apI').textContent=a[3];
+  document.getElementById('apN').textContent=a[1];document.getElementById('apD').textContent=a[2];
+  p.classList.add('sh');setTimeout(()=>p.classList.remove('sh'),4000);
+  document.getElementById('amsg').textContent='Достижение! '+a[3];
+}
+
+function setMsg(t){document.getElementById('amsg').textContent=t}
+
+// === HOME ===
+function rHome(){
+  let st=[[S.ts,'Очки','⭐'],[S.cc.length,'Синтез','🧪'],[S.se.length,'Элементы','⚛️'],[S.ua.length,'Трофеи','🏆'],[S.st,'Комбо','🔥'],[S.ls,'Дни','📅']];
+  document.getElementById('home').innerHTML=`
+  <div class="hero mb8"><h1 class="ht">🎓 Уроки Химии</h1><p class="hs">Интерактивное погружение в мир молекул, реакций и элементов!</p>
+  <div class="hb"><button class="btn bw" onclick="go('learn')">📖 Начать обучение</button><button class="btn bg" onclick="go('lab')">⚗️ В лабораторию</button></div></div>
+  <div class="sg mb8">${st.map(s=>`<div class="sc"><div class="si">${s[2]}</div><div class="sv gt">${s[0]}</div><div class="sl">${s[1]}</div></div>`).join('')}</div>
+  <div class="cd"><div class="fx ac jc g3 mb8"><span class="fs25">🏆</span><h2 class="fs2 fw9 tc gt">Зал Славы</h2></div><div class="ag" id="achG"></div></div>`;
+  rAch();
+}
+
+function rAch(){
+  let g=document.getElementById('achG');if(!g)return;
+  g.innerHTML=ACH.map(a=>`<div class="ak ${S.ua.includes(a[0])?'ul':'lk'}"><div class="ai${S.ua.includes(a[0])?' afl':''}">${a[3]}</div><div class="fw7 fs87 c8">${a[1]}</div><div class="fs75 c5 mt4">${a[2]}</div></div>`).join('');
+}
+
+// === LEARN ===
+function rLearn(){
+  document.getElementById('learn').innerHTML=`
+  <div class="cd tc"><h2 class="fs25 fw9 mb4 gt">📖 Интерактивный Учебник</h2><p class="c6 fs12 fw5">Изучай теорию для экспериментов!</p></div>
+  <div class="cd"><h3 class="fs2 fw9 mb8 tc c8">🧠 Основы Химии</h3><div class="gr mg2 g4">${TT.map(t=>`<div class="tcd"><div class="fx ac g3 mb4"><div style="font-size:2.5rem;background:rgba(99,102,241,.1);padding:.75rem;border-radius:1rem">${t[1]}</div><h4 class="fs15 fw9 ci">${t[0]}</h4></div><p class="c7 mb6 fw5" style="line-height:1.6">${t[2]}</p><div class="tf"><span>💡</span><span>${t[3]}</span></div></div>`).join('')}</div></div>
+  <div class="cd" style="background:linear-gradient(135deg,rgba(99,102,241,.05),rgba(59,130,246,.1))"><h3 class="fs2 fw9 mb8 tc ci">⚛️ Строение Атома</h3><div class="gr mg3 g4">${AS.map(a=>`<div class="atcd"><h4 class="fw9 fs15 mb4 ci">${a[0]}</h4><div class="fx jc g3 mb4 fs87"><div style="background:var(--s1);padding:.25rem .75rem;border-radius:.5rem"><span class="c5">Заряд:</span> <b style="color:${a[1].includes('+')?'var(--ro)':a[1].includes('-')?'#3b82f6':'var(--s6)'}">${a[1]}</b></div><div style="background:var(--s1);padding:.25rem .75rem;border-radius:.5rem"><span class="c5">Масса:</span> <b>${a[2]}</b></div></div><p class="c7 fw5">${a[3]}</p></div>`).join('')}</div></div>
+  <div class="cd"><h3 class="fs2 fw9 mb8 tc" style="color:#059669">🧪 Шкала pH</h3><p class="tc c6 mb8 fw5">Шкала pH: 0 (кислота) — 7 (нейтрально) — 14 (щёлочь)</p><div class="phb"><span>pH 0</span><span>pH 7</span><span>pH 14</span></div><div class="phl"><div class="tc" style="width:33%;color:var(--ro)">Кислота<br><span class="c5 fs75" style="font-weight:400">Лимон, желудок</span></div><div class="tc" style="width:33%;color:var(--em)">Нейтрально<br><span class="c5 fs75" style="font-weight:400">Вода, кровь</span></div><div class="tc" style="width:33%;color:var(--i5)">Щёлочь<br><span class="c5 fs75" style="font-weight:400">Мыло</span></div></div></div>
+  <div class="cd"><h3 class="fs2 fw9 mb8 tc c8">🔗 Химические Связи</h3><div class="gr mg2 g4">${BT.map(b=>`<div class="bcd${S.lb.includes(b[0])?' lr':''}"><div class="fx ac jb mb4"><div class="fx ac g3"><span style="font-size:2rem;background:var(--s1,#f8fafc);padding:.5rem;border-radius:.75rem">${b[3]}</span><h4 class="fs12 fw9 c8">${b[0]}</h4></div>${S.lb.includes(b[0])?'<span style="font-size:1.25rem;background:#d1fae5;padding:.5rem;border-radius:9999px">✅</span>':''}</div><p class="c6 fw5 mb6">${b[1]}</p><div style="background:var(--s1,#f8fafc);border-radius:.75rem;padding:.75rem;border:1px solid var(--s1);display:flex;justify-content:space-between;align-items:center"><span class="ril">Примеры</span><span class="fw9 ci tk">${b[2]}</span></div></div>`).join('')}</div></div>`;
+}
+
+// === PERIODIC ===
+function rPeriodic(){
+  document.getElementById('periodic').innerHTML=`
+  <div class="cd tc"><h2 class="fs25 fw9 mb4" style="background:linear-gradient(to right,#14b8a6,#10b981);-webkit-background-clip:text;background-clip:text;color:transparent">⚛️ Таблица Элементов</h2><p class="c6 fs12 fw5">Исследуй кирпичики мироздания!</p></div>
+  <div class="cd" style="max-width:1000px;margin:0 auto"><div class="gr" style="grid-template-columns:repeat(4,1fr);gap:.5rem" id="ptG"></div></div><div id="elD" class="hid"></div>`;
+  let g=document.getElementById('ptG');
+  if(window.innerWidth>=768)g.style.gridTemplateColumns='repeat(10,1fr)';
+  g.innerHTML=PT.map(e=>`<button class="eb ${e[4]}" onclick="selEl2(${e[2]})"><div class="en">${e[2]}${S.se.includes(e[2])?' ✓':''}</div><div class="ey">${e[0]}</div><div class="ee">${e[5]}</div></button>`).join('');
+}
+
+function selEl2(n){
+  let e=PT.find(x=>x[2]===n);if(!e)return;
+  if(!S.se.includes(n)){S.se.push(n);S.dp.study++;addS(1);chkCh()}
+  let d=document.getElementById('elD');d.classList.remove('hid');
+  d.innerHTML=`<div class="ed apo"><div class="edh"><div class="edi ${e[4]}">${e[5]}</div><div><h3 class="fs25 fw9 c8">${e[1]}</h3><div class="fx ac g2"><p class="fs17 c4 fw9">${e[0]}</p><span style="background:var(--s1);padding:.25rem .75rem;border-radius:.5rem;font-size:.75rem;font-weight:700;color:var(--s6)">№${e[2]}</span></div></div></div>
+  <div class="ep"><div class="epi"><div class="epl">Масса</div><div class="epv">${e[3]}</div></div><div class="epi"><div class="epl">Открыт</div><div class="epv">${e[12]}</div></div><div class="epi"><div class="epl">Группа/Период</div><div class="epv">${e[8]}/${e[9]}</div></div><div class="epi"><div class="epl">Состояние</div><div class="epv">${e[11]}</div></div></div>
+  <div class="ep mt4" style="grid-template-columns:repeat(3,1fr)"><div class="epi tc" style="background:rgba(251,191,36,.1)"><div class="epl" style="color:#d97706">Валентность</div><div class="epv" style="font-size:2rem;color:#b45309">${e[10]}</div></div><div class="epi tc" style="background:rgba(59,130,246,.1)"><div class="epl" style="color:#2563eb">Электроны</div><div class="epv" style="color:#1d4ed8">${e[7]}</div></div><div class="epi tc" style="background:rgba(244,63,94,.1)"><div class="epl" style="color:#e11d48">Период</div><div class="epv" style="color:#be123c">${e[9]}</div></div></div>
+  <div class="ef"><div class="fx ac" style="gap:1.25rem"><div class="fs25" style="opacity:.8">💡</div><div><div style="font-size:.65rem;font-weight:700;color:var(--i5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem">Знаешь ли ты?</div><p class="fs12 fw5 c7">${e[6]}</p></div></div></div></div>`;
+}
+
+// === LAB ===
+function rLab(){
+  document.getElementById('lab').innerHTML=`
+  <div class="cd fx ac jb fw g3"><div><h2 class="fs2 fw9 gt mb2">⚗️ Лаборатория</h2><p class="c6 fw5">Комбинируй элементы слева.</p></div>
+  <div class="fx g2 fw"><div class="cd tc" style="padding:1rem;background:rgba(255,255,255,.8)"><div class="c4 fs75 fw7 up tk mb2">Счёт</div><div class="fs17 fw9 ci" id="lsS">${S.gs}</div></div><div class="cd tc" style="padding:1rem;background:rgba(255,255,255,.8)"><div class="c4 fs75 fw7 up tk mb2">Открыто</div><div class="fs17 fw9 ce"><span id="lsC">${S.cc.length}</span><span class="c4 fs87">/12</span></div></div><div class="cd tc" style="padding:1rem;background:rgba(255,255,255,.8)"><div class="c4 fs75 fw7 up tk mb2">Комбо</div><div class="fs17 fw9" style="color:#f97316" id="lsK">${S.st} 🔥</div></div></div></div>
+  <div class="lg"><div class="lp"><div class="lh"><h3 class="fw9 c8 fs12">📦 Шкаф элементов</h3><span class="fs75 fw9 ci up tk" style="background:rgba(99,102,241,.1);padding:.375rem .75rem;border-radius:.75rem">Выбери 2</span></div>
+  <div class="eg hs2" id="meG" style="max-height:600px;overflow-y:auto;padding-bottom:1rem"></div></div>
+  <div class="lp rx"><h3 style="position:absolute;top:1.5rem;width:100%;text-align:center;font-size:1.5rem;font-weight:900;color:var(--i6)">⚗️ Реактор</h3>
+  <div id="mxP" class="tc" style="position:absolute;top:4rem;width:100%;z-index:10"></div>
+  <div class="ra" id="rxA"><div class="rp">Добавь элементы из шкафа,<br>чтобы начать синтез</div></div>
+  <div id="pBar" class="pbt hid"><div class="pbk"><div class="pbf" id="pFill" style="width:0"></div></div><div class="tc fs75 fw9 up tk ci mt4" style="animation:float 1s infinite">Синтез... <span id="pPct">0</span>%</div></div>
+  <div id="resC" class="hid"></div>
+  <div class="rbt"><button class="rb rbc" onclick="clrR()">Очистить</button><button class="rb rbm" id="mxB" onclick="tryMix()" disabled>Смешать</button></div></div></div>
+  <div id="colS" class="cd${S.cc.length?'':' hid'}"><h3 class="fs17 fw9 tc c8 mb6">🏆 Журнал открытий</h3><div class="cg" id="colG"></div></div>`;
+  rMeG();rColG();
+}
+
+function rMeG(){
+  let g=document.getElementById('meG');if(!g)return;
+  g.innerHTML=ME.map(e=>`<button class="me ${e[2]}${selEl.find(s=>s[0]===e[0])?' sel':''}${mixing?' dis':''}" onclick="hElC('${e[0]}')"${mixing?' disabled':''}><div class="mei">${e[3]}</div><div class="mes">${e[0]}</div><div class="men">${e[1]}</div><div class="mev">Вал: <span class="ci">${e[4]}</span></div></button>`).join('');
+}
+
+function hElC(sym){
+  if(mixing)return;let el=ME.find(e=>e[0]===sym);if(!el)return;
+  if(selEl.length>=2)selEl=[el];else selEl.push(el);
+  rMeG();rRxA();document.getElementById('mxB').disabled=selEl.length!==2;
+  let r=document.getElementById('resC');r.classList.add('hid');
+}
+
+function rRxA(){
+  let a=document.getElementById('rxA');
+  if(!selEl.length){a.innerHTML='<div class="rp">Добавь элементы из шкафа,<br>чтобы начать синтез</div>';return}
+  let h='';selEl.forEach((e,i)=>{h+=`<div class="re ${e[2]}">${e[3]}</div>`;if(i===0&&selEl.length===2)h+=`<span class="rpl${mixing?' '+' style="animation:spin 1s linear infinite"':''}">+</span>`});
+  if(mixing)h+='<span class="rpl">→</span><div class="rmx">⚡</div>';
+  a.innerHTML=h;
+}
+
+function clrR(){selEl=[];rMeG();rRxA();document.getElementById('mxB').disabled=true;document.getElementById('resC').classList.add('hid');document.getElementById('mxP').innerHTML=''}
+
+function tryMix(){
+  if(selEl.length!==2||mixing)return;mixing=true;rMeG();rRxA();
+  document.getElementById('mxP').innerHTML='<span style="background:rgba(255,255,255,.9);padding:.5rem 1.25rem;border-radius:.75rem;font-weight:700;font-size:.875rem;color:var(--i6)">Готовим колбы... ⚗️</span>';
+  let pb=document.getElementById('pBar'),pf=document.getElementById('pFill'),pp=document.getElementById('pPct');pb.classList.remove('hid');
+  let p=0,iv=setInterval(()=>{p+=5;pf.style.width=p+'%';pp.textContent=p;if(p>=100)clearInterval(iv)},50);
+  setTimeout(()=>{
+    clearInterval(iv);pf.style.width='100%';pp.textContent='100';
+    let s=selEl.map(e=>e[0]).sort(),f=VC.find(c=>{let cs=[c[0],c[1]].sort();return cs[0]===s[0]&&cs[1]===s[1]});
+    if(f){let nw=!S.cc.find(c=>c[2]===f[2]);if(nw){S.cc.push(f);S.gs+=f[5];S.st++;S.dp.mix++;addS(f[5]);setMsg(APHR[1][Math.floor(Math.random()*3)]);if(!S.lb.includes(f[8])){S.lb.push(f[8])}}else S.st=0;showRes(f,true)}
+    else{S.st=0;showRes(null,false);setMsg(APHR[2][Math.floor(Math.random()*3)])}
+    selEl=[];mixing=false;setTimeout(()=>{pb.classList.add('hid');pf.style.width='0'},500);
+    rMeG();rRxA();rColG();updLabS();chkCh();save();
+  },1200);
+}
+
+function showRes(c,ok){
+  let r=document.getElementById('resC');r.classList.remove('hid');document.getElementById('mxP').innerHTML='';
+  if(ok&&c){r.className='rc ok apo';r.innerHTML=`<div class="fs4 mb4 afl">✨</div><div class="rcf gt">${c[2]}</div><div class="fs17 fw9 c8 up tk mb2">${c[3]}</div><div class="c6 fw5 fs87 mb6">${c[4]}</div><div class="ri"><span class="ril">Тип связи</span><span class="riv">${c[8]}</span></div><div class="ri"><span class="ril">Уравнение</span><span class="riv" style="font-family:monospace">${c[9]}</span></div><div style="display:inline-block;background:#d1fae5;color:#059669;border-radius:9999px;padding:.5rem 1.5rem;font-weight:900;font-size:.875rem;text-transform:uppercase;letter-spacing:.1em;border:1px solid #a7f3d0;margin-bottom:1rem">+${c[5]} XP</div>${c[10]?`<div style="background:rgba(59,130,246,.05);border-radius:.75rem;padding:1rem;text-align:left;border:1px solid rgba(59,130,246,.1)"><span style="font-size:.6rem;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:.25rem">Знаешь ли ты?</span><span class="fs75 fw7 c7">💡 ${c[10]}</span></div>`:''}`}
+  else{r.className='rc no apo';r.innerHTML=`<div class="fs4 mb4">💥</div><div class="fs17 fw9 mb2" style="color:var(--ro)">Несовместимо!</div><div class="c6 fs87 fw5 mb6">Эти элементы не образуют соединение.</div><div style="background:var(--s1,#f8fafc);border-radius:.75rem;padding:1rem;border:1px solid var(--s2);text-align:left"><div class="ril mb2">Подсказки:</div><div class="c7 fw7" style="font-family:monospace;letter-spacing:.1em">H+O, Na+Cl, C+O, H+Cl...</div></div>`}
+}
+
+function rColG(){
+  let g=document.getElementById('colG'),s=document.getElementById('colS');if(!g||!s)return;
+  if(!S.cc.length){s.classList.add('hid');return}s.classList.remove('hid');
+  g.innerHTML=S.cc.map(c=>`<div class="ci2 ${c[7]}"><div style="font-size:2rem;margin-bottom:.5rem">${c[6]}</div><div class="fw9 fs15 tk">${c[2]}</div><div style="font-size:.6rem;font-weight:700;text-transform:uppercase;margin-top:.25rem;opacity:.9">${c[3]}</div></div>`).join('');
+}
+
+function updLabS(){
+  let a=document.getElementById('lsS'),b=document.getElementById('lsC'),c=document.getElementById('lsK');
+  if(a)a.textContent=S.gs;if(b)b.textContent=S.cc.length;if(c)c.textContent=S.st+' 🔥';
+}
+
+// === MEMORY ===
+function initMem(){
+  let d=MC.flatMap(c=>[{s:c[0],e:c[1],c:c[2],u:Math.random()},{s:c[0],e:c[1],c:c[2],u:Math.random()}]);
+  mDeck=d.sort(()=>Math.random()-.5);mFlip=[];mMatch=[];mMov=0;
+}
+
+function rMem(){
+  document.getElementById('memory').innerHTML=`
+  <div class="cd tc"><h2 class="fs25 fw9 mb4" style="background:linear-gradient(to right,#10b981,#14b8a6);-webkit-background-clip:text;background-clip:text;color:transparent">🎴 Химическая Память</h2><p class="c6 fs12 fw5">Тренируй мозг, запоминая элементы!</p></div>
+  <div class="fx jc g3 fw mb8"><div class="cd tc" style="padding:1rem;background:rgba(255,255,255,.8)"><div class="c4 fs75 fw7 up tk mb2">Счёт</div><div class="fs2 fw9 ci">${S.ms}</div></div><div class="cd tc" style="padding:1rem;background:rgba(255,255,255,.8)"><div class="c4 fs75 fw7 up tk mb2">Ходы</div><div class="fs2 fw9" style="color:var(--p6)">${mMov}</div></div></div>
+  <div class="cd" style="max-width:600px;margin:0 auto"><div class="mmg" id="mmG"></div></div>
+  <div class="tc mt6"><button class="btn bs" onclick="initMem();rMem()">🔄 Раздать заново</button></div>
+  <div id="mWin" class="hid"></div>`;
+  rMemG();
+}
+
+function rMemG(){
+  let g=document.getElementById('mmG');if(!g)return;
+  g.innerHTML=mDeck.map(c=>{let fl=mFlip.includes(c.u)||mMatch.includes(c.u),mt=mMatch.includes(c.u);
+  return`<button class="mc${fl?' fl '+c.c:' hd'}${mt?' mt2':''}" onclick="flipC(${c.u})"${fl?' disabled':''}>${fl?`<div style="font-size:1.5rem">${c.e}</div><div style="font-size:1.25rem;margin-top:.25rem">${c.s}</div>`:'<div style="font-size:1.5rem;opacity:.5">❓</div>'}</button>`}).join('');
+}
+
+function flipC(u){
+  if(mFlip.length>=2||mFlip.includes(u)||mMatch.includes(u))return;
+  mFlip.push(u);rMemG();
+  if(mFlip.length===2){mMov++;
+    let c1=mDeck.find(c=>c.u===mFlip[0]),c2=mDeck.find(c=>c.u===mFlip[1]);
+    if(c1&&c2&&c1.s===c2.s){setTimeout(()=>{mMatch.push(mFlip[0],mFlip[1]);mFlip=[];S.ms+=5;S.dp.memory++;addS(5);rMem();chkCh();if(mMatch.length===mDeck.length){let w=document.getElementById('mWin');w.classList.remove('hid');w.innerHTML=`<div class="mo"><div class="md apo"><div class="fs4 mb4 afl">🎊</div><div class="fs2 fw9 mb2" style="color:var(--em)">Победа!</div><div class="c6 fw5 mb6">Все пары за <b class="ci fs15">${mMov}</b> ходов.</div><button class="btn bp" style="width:100%" onclick="initMem();rMem()">Играть снова</button></div></div>`}},500)}
+    else setTimeout(()=>{mFlip=[];rMemG()},1000);
+  }
+}
+
+// === QUIZ ===
+function rQuiz(){
+  document.getElementById('quiz').innerHTML=`
+  <div class="cd tc"><h2 class="fs25 fw9 mb4" style="background:linear-gradient(to right,#f43f5e,#6366f1);-webkit-background-clip:text;background-clip:text;color:transparent">✅ Экзамен</h2><p class="c6 fs12 fw5">Проверь знания!</p></div>
+  <div style="max-width:600px;margin:0 auto">
+  <div id="qSt" class="cd tc"><div class="fs5 mb6 afl">⏱️</div><h3 class="fs17 fw9 mb4 c8">Готов к тесту?</h3><p class="c6 mb8" style="max-width:400px;margin:0 auto 2rem;line-height:1.6">10 вопросов на время. За верный ответ — опыт.</p><button class="btn bp" onclick="startQ()">Начать</button></div>
+  <div id="qGm" class="cd hid"></div>
+  <div id="qRs" class="cd tc hid"></div></div>`;
+}
+
+function startQ(){qI=0;qC=0;qA=null;qT=0;
+  document.getElementById('qSt').classList.add('hid');document.getElementById('qRs').classList.add('hid');
+  document.getElementById('qGm').classList.remove('hid');
+  qTmr=setInterval(()=>{qT+=.1;let t=document.getElementById('qTm');if(t)t.textContent=qT.toFixed(1)+'с'},100);
+  rQQ();
+}
+
+function rQQ(){
+  let q=QZ[qI];
+  document.getElementById('qGm').innerHTML=`
+  <div class="fx jb ac mb6"><span class="fs75 fw7 up tk c5" style="background:#fff;padding:.5rem 1rem;border-radius:.75rem">Вопрос ${qI+1}/10</span><span class="ci fw9">${qC} правильных</span></div>
+  <div class="fx ac jb mb8" style="background:rgba(255,255,255,.6);padding:1rem;border-radius:1rem;border:1px solid #fff"><span class="fs75 fw7 c4 up tk">Время:</span><span class="fs17 fw9 cr" style="font-family:monospace" id="qTm">${qT.toFixed(1)}с</span></div>
+  <div class="qp"><div class="qpf" style="width:${(qI+1)/10*100}%"></div></div>
+  <h3 class="fs15 fw9 mb6 c8">${q[0]}</h3>
+  ${q[1].map((o,i)=>`<button class="qo${qA===i?' qs':''}" onclick="qA=${i};rQQ()">${i+1}. ${o}</button>`).join('')}
+  <button class="btn bp" style="width:100%;margin-top:2rem" onclick="nextQ()"${qA===null?' disabled':''}>
+  ${qI<9?'Далее':'Завершить'}</button>`;
+}
+
+function nextQ(){
+  if(qA===QZ[qI][2])qC++,S.dp.quiz++;
+  if(qI<9){qI++;qA=null;rQQ()}else finQ();
+}
+
+function finQ(){
+  clearInterval(qTmr);
+  document.getElementById('qGm').classList.add('hid');let r=document.getElementById('qRs');r.classList.remove('hid');
+  let em=qC>=8?'🏆':qC>=5?'👏':'📚',msg=qC>=8?'Блестяще! Ты эксперт.':qC>=5?'Неплохо! Есть куда расти.':'Почитай учебник!';
+  r.innerHTML=`<div class="fs5 mb4 afl">${em}</div><h3 class="fs2 fw9 mb6 c8">Тест завершён!</h3><div class="fx jc g4 mb8"><div class="cd" style="padding:1.25rem;background:#fff;min-width:120px"><div class="fs75 fw7 c4 up tk mb2">Результат</div><div class="fs25 fw9 ci">${qC}<span class="fs12 c4">/10</span></div></div><div class="cd" style="padding:1.25rem;background:#fff;min-width:120px"><div class="fs75 fw7 c4 up tk mb2">Время</div><div class="fs25 fw9 cr">${qT.toFixed(1)}с</div></div></div><p class="fs12 mb8 fw5 c6">${msg}</p><button class="btn bs" onclick="rQuiz()">Пройти заново</button>`;
+  addS(qC*3);
+  if(qC>=8&&!S.ua.includes('quiz_master')){S.ua.push('quiz_master');showAP(ACH[7]);addS(15)}
+  chkCh();save();
+}
+
+// === CHALLENGES ===
+function rChal(){
+  document.getElementById('challenges').innerHTML=`
+  <div class="cd tc"><h2 class="fs25 fw9 mb4" style="background:linear-gradient(to right,#8b5cf6,#d946ef);-webkit-background-clip:text;background-clip:text;color:transparent">📅 Квесты</h2><p class="c6 fs12 fw5">Выполняй задания!</p></div>
+  <div class="cd mb6"><div class="fx ac g4 fw"><div style="font-size:3rem;background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(217,70,239,.1));padding:1rem;border-radius:1rem">🔥</div><div><div class="fs17 fw9" style="color:#5b21b6">Серия: ${S.ls} дней подряд</div><div class="fs87 fw5" style="color:#7c3aed">Заходи каждый день!</div></div></div></div>
+  <div class="gr mg2" style="gap:1.25rem">${DC.map(ch=>{let cur=S.dp[ch[2]]||0,comp=S.cch.includes(ch[0]),pr=Math.min(cur/ch[3]*100,100);
+  return`<div class="chc${comp?' cp':''}"><div class="fx ac g3 mb6"><div style="font-size:2.5rem;padding:.75rem;border-radius:1rem;box-shadow:0 2px 8px rgba(0,0,0,.05);border:1px solid #fff;background:${comp?'#d1fae5':'var(--s1)'}">${ch[5]}</div><div class="f1"><h3 class="fs12 fw9 c8">${ch[1]}</h3><div style="font-size:.6rem;font-weight:700;color:#7c3aed;text-transform:uppercase;letter-spacing:.1em;margin-top:.25rem">+${ch[4]} XP</div></div>${comp?'<div style="font-size:1.5rem">✅</div>':''}</div><div class="chp"><div class="chpf${comp?' cp':''}" style="width:${pr}%"></div></div><div class="fx jb mt4" style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em"><span class="c4">${cur}/${ch[3]}</span><span style="color:${comp?'var(--em)':'#8b5cf6'}">${comp?'Готово':Math.round(pr)+'%'}</span></div></div>`}).join('')}</div>`;
+}
+
+function chkCh(){
+  DC.forEach(ch=>{if(S.cch.includes(ch[0]))return;let cur=S.dp[ch[2]]||0;if(cur>=ch[3]){S.cch.push(ch[0]);addS(ch[4]);setMsg('Задание выполнено! +'+ch[4]+' XP! 🎁')}});
+  save();
+}
+
+init();
+</script>
+</body>
 </html>
